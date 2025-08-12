@@ -1,0 +1,25 @@
+{
+  "name": "wgsl-template",
+  "displayName": "WGSL Template",
+  "description": "Syntax highlight support for WGSL Template",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.103.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "wgsl_template",
+      "aliases": ["WGSL Template", "wgsl_template"],
+      "extensions": [".wgsl.template"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "wgsl_template",
+      "scopeName": "source.wgsl_template",
+      "path": "./syntaxes/wgsl_template.tmLanguage.json"
+    }]
+  }
+}

@@ -1,0 +1,134 @@
+$schema: https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json
+name: WGSL Template
+patterns:
+  - include: "#preprocessor_directives"
+  - include: "#predefined_variables"
+  - include: "#predefined_functions"
+  - include: "#custom_types"
+  - include: "source.wgsl"
+repository:
+  predefined_variables:
+    patterns:
+      - match: \b(uniforms)\b
+        name: support.variable.builtin.wgsl_template
+  
+  predefined_functions:
+    patterns:
+      - match: (\$MAIN)\b
+        name: support.function.builtin.wgsl_template
+  
+  custom_types:
+    patterns:
+      - match: \b([a-zA-Z_]\w*(?:_element_t|_value_t))\b
+        name: entity.name.type.custom.wgsl_template
+  
+  preprocessor_directives:
+    patterns:
+      # #include directive
+      - name: meta.preprocessor.include.wgsl_template
+        begin: ^(\s*)((#)\s*(include))\b\s*
+        beginCaptures:
+          2:
+            name: keyword.control.directive.include.wgsl_template
+          3:
+            name: punctuation.definition.directive.wgsl_template
+        end: (?=//|/\*)|(?<!\\)(?=\n)
+        patterns:
+          - begin: \"
+            beginCaptures:
+              0:
+                name: punctuation.definition.string.begin.wgsl_template
+            end: \"
+            endCaptures:
+              0:
+                name: punctuation.definition.string.end.wgsl_template
+            name: string.quoted.double.include.wgsl_template
+          - begin: <
+            beginCaptures:
+              0:
+                name: punctuation.definition.string.begin.wgsl_template
+            end: ">"
+            endCaptures:
+              0:
+                name: punctuation.definition.string.end.wgsl_template
+            name: string.quoted.other.lt-gt.include.wgsl_template
+      
+      # #define directive
+      - name: meta.preprocessor.macro.wgsl_template
+        begin: ^(\s*)((#)\s*(define))\b\s+((?:[a-zA-Z_]\w*))(?:(\()([^()]*)(\)))?
+        beginCaptures:
+          2:
+            name: keyword.control.directive.define.wgsl_template
+          3:
+            name: punctuation.definition.directive.wgsl_template
+          5:
+            name: entity.name.function.preprocessor.wgsl_template
+          6:
+            name: punctuation.definition.parameters.begin.wgsl_template
+          7:
+            patterns:
+              - match: (?<=[(,])\s*([a-zA-Z_]\w*)\s*
+                captures:
+                  1:
+                    name: variable.parameter.preprocessor.wgsl_template
+              - match: ","
+                name: punctuation.separator.parameters.wgsl_template
+          8:
+            name: punctuation.definition.parameters.end.wgsl_template
+        end: (?=//|/\*)|(?<!\\)(?=\n)
+        patterns:
+          - match: \\.
+            name: constant.character.escape.line-continuation.wgsl_template
+      
+      # #if, #ifdef, #ifndef directives
+      - name: meta.preprocessor.conditional.wgsl_template
+        begin: ^(\s*)((#)\s*(if|ifdef|ifndef))\b
+        beginCaptures:
+          2:
+            name: keyword.control.directive.conditional.wgsl_template
+          3:
+            name: punctuation.definition.directive.wgsl_template
+        end: (?=//|/\*)|(?<!\\)(?=\n)
+        patterns:
+          - match: \b([a-zA-Z_]\w*)\b
+            name: entity.name.function.preprocessor.wgsl_template
+      
+      # #else, #elif, #endif directives
+      - name: meta.preprocessor.conditional.wgsl_template
+        begin: ^(\s*)((#)\s*(else|elif|endif))\b
+        beginCaptures:
+          2:
+            name: keyword.control.directive.conditional.wgsl_template
+          3:
+            name: punctuation.definition.directive.wgsl_template
+        end: (?=//|/\*)|(?<!\\)(?=\n)
+        patterns:
+          - match: \b([a-zA-Z_]\w*)\b
+            name: entity.name.function.preprocessor.wgsl_template
+      
+      # #param directive (custom for WGSL template)
+      - name: meta.preprocessor.param.wgsl_template
+        begin: ^(\s*)((#)\s*(param))\b\s+
+        beginCaptures:
+          2:
+            name: keyword.control.directive.param.wgsl_template
+          3:
+            name: punctuation.definition.directive.wgsl_template
+        end: (?=//|/\*)|(?<!\\)(?=\n)
+        patterns:
+          - match: ([a-zA-Z_]\w*)
+            name: variable.parameter.wgsl_template
+      
+      # #use directive (custom for WGSL template)
+      - name: meta.preprocessor.use.wgsl_template
+        begin: ^(\s*)((#)\s*(use))\b\s+
+        beginCaptures:
+          2:
+            name: keyword.control.directive.use.wgsl_template
+          3:
+            name: punctuation.definition.directive.wgsl_template
+        end: (?=//|/\*)|(?<!\\)(?=\n)
+        patterns:
+          - match: ([a-zA-Z_]\w*)
+            name: entity.name.namespace.wgsl_template
+scopeName: source.wgsl_template

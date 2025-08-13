@@ -10,16 +10,31 @@
     "Programming Languages"
   ],
   "contributes": {
-    "languages": [{
-      "id": "wgsl_template",
-      "aliases": ["WGSL Template", "wgsl_template"],
-      "extensions": [".wgsl.template"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "wgsl_template",
-      "scopeName": "source.wgsl_template",
-      "path": "./syntaxes/wgsl_template.tmLanguage.json"
-    }]
+    "languages": [
+      {
+        "id": "wgsl_template",
+        "aliases": [
+          "WGSL Template",
+          "wgsl_template"
+        ],
+        "extensions": [
+          ".wgsl.template"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "wgsl_template",
+        "scopeName": "source.wgsl_template",
+        "path": "./syntaxes/wgsl_template.tmLanguage.json"
+      }
+    ]
+  },
+  "devDependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "scripts": {
+    "prepare": "js-yaml ./syntaxes/wgsl_template.tmLanguage.yaml > ./syntaxes/wgsl_template.tmLanguage.json"
   }
 }

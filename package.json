@@ -3,8 +3,14 @@
   "displayName": "WGSL Template",
   "description": "Syntax highlight support for WGSL Template",
   "version": "0.0.1",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fs-eire/wgsl-template-vscode-extension"
+  },
+  "publisher": "fs-eire",
   "engines": {
-    "vscode": "^1.103.0"
+    "vscode": "^1.74.0"
   },
   "categories": [
     "Programming Languages"
